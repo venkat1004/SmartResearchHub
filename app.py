@@ -1,5 +1,5 @@
 import streamlit as st
-from poka import research_task, generate_use_cases, search_datasets_based_on_use_cases
+from agents import research_task, generate_use_cases, search_datasets_based_on_use_cases
 
 # Streamlit UI
 st.title("Smart Data Navigator")
