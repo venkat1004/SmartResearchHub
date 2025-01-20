@@ -76,12 +76,12 @@ def generate_use_cases(company, research_results=None):
     """
     if not research_results or research_results == "No data available.":
         print("Invalid or empty research results. Use case generation skipped.")
-        return
+        return None
 
     # Debug: Check the research results being passed to the use case agent
     print(f"Research results passed to use case generation: {research_results}")
 
-    # If the research results are not structured, try parsing or structuring them
+    # Structure the input for the use case generation
     structured_input = {
         "company": company,
         "industry_trends": research_results  # Adjust based on actual structure of results
@@ -102,7 +102,7 @@ def generate_use_cases(company, research_results=None):
         # Debug: Print the entire results object to understand its structure
         print(f"Raw use case results: {results}")
 
-        # Enhance output processing: check if the result is a list or dictionary and handle accordingly
+        # Check if results contain an 'output' attribute, which should be a list or string
         if hasattr(results, 'output'):
             if isinstance(results.output, list):
                 use_case_results = "\n".join(results.output)  # Join list into a readable string
@@ -123,8 +123,7 @@ def generate_use_cases(company, research_results=None):
 
     except Exception as e:
         print(f"Error occurred during use case generation: {str(e)}. Verify API inputs and configurations.")
-
-
+        return None
 def search_datasets_based_on_use_cases(use_case_results, company):
     """
     Search for relevant datasets based on the generated use cases for the company.
